@@ -25,10 +25,16 @@ infoZoneRect = pygame.Rect(infoZoneLeft, infoZoneTop, infoZoneWidth, infoZoneHei
 
 #COLORS
 WHITE = (255, 255, 255)
+BURGUNDY = (142, 50, 1)
 BLACK = (0,0,0)
+
+#Color that Pieces move around on.
+#(in Checkers, the other color is never used)
+activeColor = "red"
 
 #FONTS
 ARIAL = pygame.font.SysFont("arial", 30)
+ARIALSMALL = pygame.font.SysFont("arial", 16)
 
 #Player Scores
 player1Score = 12

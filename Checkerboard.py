@@ -17,7 +17,7 @@ class Checkerboard():
 				else:
 					self.grid[y].append(Tile(y, x, "black", self))
 
-				if self.grid[y][x].color == "red":
+				if self.grid[y][x].color == activeColor:
 					if(y < 3):
 						self.grid[y][x].item = Piece(0, y, x, self)
 					elif(y > 4):

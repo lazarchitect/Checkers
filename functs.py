@@ -126,8 +126,10 @@ def move(b, screen, choiceTile, team):
 					# get the average of choiceTile.x and destTile.x, same for y, and set the tile at that coord pair's item to None. and then clean it.
 					# before u kill it, get the team and lower that team's score by 1.
 
+					jump = False
+
 					if abs(destTile.x - choiceTile.x) == 2: #a jump has occurred
-						
+						jump = True	
 						deadPieceY = int((destTile.y + choiceTile.y)/2)
 						deadPieceX = int((destTile.x + choiceTile.x)/2)
 						
@@ -143,6 +145,8 @@ def move(b, screen, choiceTile, team):
 						deadTileImg = pygame.transform.scale(pygame.image.load(deadPieceTile.color+"Tile.png"), (tileWidth, tileHeight))
 						screen.blit(deadTileImg, (deadPieceX*tileWidth, deadPieceY*tileHeight))
 						pygame.display.update(pygame.Rect(deadPieceX*tileWidth, deadPieceY*tileHeight, tileWidth, tileHeight))
+
+						jump = True
 
 
 
@@ -176,8 +180,13 @@ def move(b, screen, choiceTile, team):
 
 
 					#the logic for kings SHOULD BE already taken care of but graphics are not	
-
-					return True
+					
+					return not jump
+					# reasoning for this: move() should return false if the player needs to go again. 
+					# Which means, if they didnt click on a highlighted tile, thats false.
+					# OR, if they made a jump, they go again, so thats also false.
+					# jump is initialized to false, and will return true if a jump happened.
+					# so, we want the opposite of it.
 
 				else:
 					unHighlightAll(b, screen)
@@ -193,11 +202,23 @@ def updateInfoZone(b, screen, currentTeam):
 	global player1Score
 	global player2Score
 
-	pygame.draw.rect(screen, WHITE, infoZoneRect)
+	pygame.draw.rect(screen, BURGUNDY , infoZoneRect)
 	screen.blit(ARIAL.render("Player " + str(currentTeam + 1) + ", Your Turn", 0, BLACK), (infoZoneLeft+35, infoZoneTop))
 
 	screen.blit(ARIAL.render("Player 1's Score: " + str(player1Score), 0, BLACK), (infoZoneLeft+35, infoZoneTop + 100))
 	screen.blit(ARIAL.render("Player 2's Score: " + str(player2Score), 0, BLACK), (infoZoneLeft+35, infoZoneTop + 130))
+
+	screen.blit(ARIAL.render("Rules:", 0, BLACK), (infoZoneLeft+35, infoZoneTop + 285))
+	screen.blit(ARIALSMALL.render("- Jump over enemy pieces to remove them.", 0, BLACK), (infoZoneLeft+35, infoZoneTop + 320))
+	screen.blit(ARIALSMALL.render("- First one to remove all enemy pieces wins.", 0, BLACK), (infoZoneLeft+35, infoZoneTop + 340))
+	screen.blit(ARIALSMALL.render("- If you jump an enemy piece, you move again.", 0, BLACK), (infoZoneLeft+35, infoZoneTop + 360))
+	screen.blit(ARIALSMALL.render("- If a Piece reaches the other side, it becomes a King.", 0, BLACK), (infoZoneLeft+35, infoZoneTop + 380))
+	screen.blit(ARIALSMALL.render("- Kings can move in any diagonal direction.", 0, BLACK), (infoZoneLeft+35, infoZoneTop + 400))
+	screen.blit(ARIALSMALL.render("- Red goes first.", 0, BLACK), (infoZoneLeft+35, infoZoneTop + 420))
+
+	img = pygame.image.load("artisanal.png")
+	img = pygame.transform.scale(img, (infoZoneWidth, 200))
+	screen.blit(img, (800, 600))
 
 	pygame.display.update(infoZoneRect)
 
