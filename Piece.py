@@ -1,3 +1,7 @@
+"""A simple class to represent a moveable Checkers piece. 
+It just has a few attributes, like location, color, king or not, 
+and an image that represents it visually."""
+
 class Piece():
 
 	def __init__(self, team, y, x, b):
