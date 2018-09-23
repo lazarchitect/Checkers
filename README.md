@@ -1,6 +1,3 @@
-# Checkers
-Took a break from the Quadradius thing to throw this together. It's just checkers... for now.
-
 After completing Song Guesser, I decided to dive into one of my favorite project types, board games. 
 As a tutorial project for other things I want to make, I chose the simplest board game I could think of.
 
